@@ -1,13 +1,15 @@
 struct Buffer
 {
-    bool disposed;
+    int disposed;
     int size;
     int* array;
-    int* current;
+    int* currentWrite;
+    int* currentRead;
 };
 
-int next(Buffer* b);
-void add(Buffer* b);
-int avg(Buffer* b);
+int next(struct Buffer* b);
+void add(struct Buffer* b, int value);
+int avg(struct Buffer* b);
+void dispose(struct Buffer* b);
 
-Buffer newBuffer(int size);
+struct Buffer newBuffer(int size);
