@@ -1,9 +1,11 @@
-#include "buffer.h";
+#include "buffer.h"
+#include "stdlib.h"
+#include "stdio.h"
 
-int *nextPointer(start, size, current)
+int *nextPointer(int *start, int size, int *current)
 {
-    int *next = current + sizeof(int);
-    if (next >= start + sizeof(int) * size)
+    int *next = current + 1;
+    if (next >= start + size)
     {
         return start;
     }
@@ -24,10 +26,10 @@ void add(struct Buffer *b, int value)
 {
     if (b->disposed)
     {
-        return -1;
+        return;
     }
-    b->currentWrite = nextPointer(b->array, b->size, b->currentRead);
     *b->currentWrite = value;
+    b->currentWrite = nextPointer(b->array, b->size, b->currentWrite);
 }
 
 int avg(struct Buffer *b)
@@ -39,6 +41,7 @@ int avg(struct Buffer *b)
     int result = 0;
     for (int i = 0; i < b->size; i++)
     {
+        printf("I:%i, V:%i\n",i,b->array[i]);
         result += b->array[i];
     }
 
@@ -57,7 +60,8 @@ struct Buffer newBuffer(int size)
     buf.disposed = 0;
     buf.size = size;
     int *array = (int *)malloc(size * sizeof(int));
-    for(int i = 0; i < size; i++){
+    for (int i = 0; i < size; i++)
+    {
         array[i] = 0;
     }
     buf.array = array;

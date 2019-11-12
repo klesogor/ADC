@@ -7,9 +7,9 @@ struct Buffer
     int* currentRead;
 };
 
-int next(Buffer* b);
-void add(Buffer* b, int value);
-int avg(Buffer* b);
-bool dispose(Buffer* b);
+int next(struct Buffer* b);
+void add(struct Buffer* b, int value);
+int avg(struct Buffer* b);
+void dispose(struct Buffer* b);
 
-Buffer newBuffer(int size);
+struct Buffer newBuffer(int size);
