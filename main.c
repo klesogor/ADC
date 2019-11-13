@@ -23,7 +23,7 @@ int main()
 	{
 		add(&buf, ADC_read());
 		delay_ms(10);
-    TM1637_display_all(next(&buf));
+    TM1637_display_all(avg(&buf));
 		delay_ms(100);
 	}
 }
