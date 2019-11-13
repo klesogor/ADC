@@ -17,13 +17,13 @@ int main()
 	TM1637_display_all(digit_display0);
 	delay_ms(1000);
  
-	Buffer *buf = newBuffer(BUFFER_SIZE);
+	struct Buffer buf = newBuffer(BUFFER_SIZE);
 	
 	while (1)
 	{
-		add(buf, ADC_read());
+		add(&buf, ADC_read());
 		delay_ms(10);
-    TM1637_display_all(next(buf));
+    TM1637_display_all(next(&buf));
 		delay_ms(100);
 	}
 }

@@ -383,16 +383,6 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>buffer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\buffer.c</FilePath>
-            </File>
-            <File>
-              <FileName>buffer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\buffer.h</FilePath>
-            </File>
-            <File>
               <FileName>ADC.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\ADC.h</FilePath>
@@ -426,6 +416,16 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>buffer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\buffer.h</FilePath>
+            </File>
+            <File>
+              <FileName>buffer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\buffer.c</FilePath>
             </File>
           </Files>
         </Group>
