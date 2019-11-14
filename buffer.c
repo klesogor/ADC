@@ -2,37 +2,40 @@
 #include "stdlib.h"
 #include "stdio.h"
 
-int *nextPointer(int *start, int size, int *current)
+int *normalize(int *min, int *max, int *c)
 {
-    int *next = current + 1;
-    if (next >= start + size)
+    if (c >= max)
     {
-        return start;
+        return min;
     }
-    return next;
+    if (c < min)
+    {
+        return max;
+    }
+    return c;
 }
 
-int next(struct Buffer *b)
+int cbuf_read(struct Buffer *b)
 {
     if (b->disposed)
     {
         return -1;
     }
-    b->currentRead = nextPointer(b->array, b->size, b->currentRead);
+    b->currentRead = normalize(b->array, b->array + b->size, b->currentRead + 1);
     return *b->currentRead;
 }
 
-void add(struct Buffer *b, int value)
+void cbuf_write(struct Buffer *b, int value)
 {
     if (b->disposed)
     {
         return;
     }
     *b->currentWrite = value;
-    b->currentWrite = nextPointer(b->array, b->size, b->currentWrite);
+    b->currentWrite = nextPointer(b->array,b->array + b->size, b->currentWrite + 1);
 }
 
-int avg(struct Buffer *b)
+int cbuf_avg(struct Buffer *b)
 {
     if (b->disposed)
     {
@@ -41,14 +44,14 @@ int avg(struct Buffer *b)
     int result = 0;
     for (int i = 0; i < b->size; i++)
     {
-        printf("I:%i, V:%i\n",i,b->array[i]);
+        printf("I:%i, V:%i\n", i, b->array[i]);
         result += b->array[i];
     }
 
     return result / b->size;
 }
 
-void dispose(struct Buffer *b)
+void cbuf_dispose(struct Buffer *b)
 {
     b->disposed = 1;
     free(b->array);
@@ -59,11 +62,7 @@ struct Buffer newBuffer(int size)
     struct Buffer buf;
     buf.disposed = 0;
     buf.size = size;
-    int *array = (int *)malloc(size * sizeof(int));
-    for (int i = 0; i < size; i++)
-    {
-        array[i] = 0;
-    }
+    int *array = (int *)calloc(size, sizeof(int));
     buf.array = array;
     buf.currentRead = array;
     buf.currentWrite = array;
