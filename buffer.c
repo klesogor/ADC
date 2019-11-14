@@ -1,6 +1,5 @@
 #include "buffer.h"
 #include "stdlib.h"
-#include "stdio.h"
 
 int *normalize(int *min, int *max, int *c)
 {
@@ -32,7 +31,7 @@ void cbuf_write(struct Buffer *b, int value)
         return;
     }
     *b->currentWrite = value;
-    b->currentWrite = nextPointer(b->array,b->array + b->size, b->currentWrite + 1);
+    b->currentWrite = normalize(b->array,b->array + b->size, b->currentWrite + 1);
 }
 
 int cbuf_avg(struct Buffer *b)
@@ -44,7 +43,6 @@ int cbuf_avg(struct Buffer *b)
     int result = 0;
     for (int i = 0; i < b->size; i++)
     {
-        printf("I:%i, V:%i\n", i, b->array[i]);
         result += b->array[i];
     }
 
@@ -57,7 +55,7 @@ void cbuf_dispose(struct Buffer *b)
     free(b->array);
 }
 
-struct Buffer newBuffer(int size)
+struct Buffer cbuf_new(int size)
 {
     struct Buffer buf;
     buf.disposed = 0;

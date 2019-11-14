@@ -2,7 +2,7 @@
 #include "delay.h"
 #include "ADC.h"
 #include "tm1637.h"
-
+#include "stdio.h"
 #define BUFFER_SIZE 64
 
 unsigned int digit_display0 = 0;
